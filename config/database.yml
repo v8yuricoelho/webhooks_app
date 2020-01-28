@@ -10,3 +10,7 @@ default: &default
 development:
   <<: *default
   database: creating_webhooks
+
+test:
+  <<: *default
+  database: creating_webhooks_test

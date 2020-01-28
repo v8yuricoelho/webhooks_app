@@ -7,9 +7,8 @@ class EventsController < ApplicationController
         verify_signature(payload_body)
 
         push = urlencoded_to_json(request.headers)
-
-        issue = Issue.find_or_create_by(id: push.dig("issue", "number")) # Assimilating the issue number to the id.
-        event = Event.new(issue_id: issue.id, action: push.dig("action"))
+    
+        event = Issue.find_or_create_by(number: push.dig("issue", "number")).events.new(action: push.dig("action"))
 
         if event.save
             render json: {data: event}, status: :ok
@@ -19,8 +18,8 @@ class EventsController < ApplicationController
     end
 
     def index
-        if params[:issue_id]
-            @events = Event.where(issue_id: params[:issue_id])
+        if params[:number]
+            @events = Issue.find_by(number: params[:number]).events
         else
             @events = Event.all
         end

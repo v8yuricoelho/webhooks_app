@@ -61,5 +61,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Allowing requests by ngrok tunnel
-  config.hosts << "62b65c4d.ngrok.io"
+  config.hosts << "58f52554.ngrok.io"
 end
