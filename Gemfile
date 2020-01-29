@@ -33,8 +33,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Gems added by developer
   gem 'rspec-rails'
-  gem 'faker'
   gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
