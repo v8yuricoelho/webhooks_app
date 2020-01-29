@@ -49,14 +49,14 @@ This application listens GitHub events by webhooks and exposes it by an api
 
 * Up and running the application
 	
-	- To initialize, inside folder's project, run:
+	To initialize, inside folder's project, run:
 
 		$ bundle install
 		$ rails db:create
 		$ rails db:migrate
 		$ rails db:migrate RAILS_ENV=test
 
-	- To run:
+	To run:
 
 		$ rails server	
 

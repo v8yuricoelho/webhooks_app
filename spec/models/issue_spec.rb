@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Issue, type: :model do
-  subject {Issue.new}
-
   describe "Validations" do
     it "is valid with valid attributes" do
       subject = build(:issue)
