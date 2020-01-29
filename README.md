@@ -1,85 +1,65 @@
-<<<<<<< HEAD
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+This application listens GitHub events by webhooks and exposes it by an api
 
 * Ruby version
 
+	- 2.5.1
+
+* Rails version
+
+	- Rails 6.0.2.1
+
 * System dependencies
+	
+	- Git
+	- PostgreSQL
+	- ngrok
 
 * Configuration
 
-* Database creation
+	- Database default configured with postgresql database and gem pg 
+	- Set database username and password at /config/database.yml file
 
-* Database initialization
+* Creating a webhook repository at GitHub and configuring
+	
+	First, create a new repository at GitHub(github.com). After that, go to the settings page of your repository. From there, click "Webhooks", then "Add webhook".
+
+	The next step is start the ngrok with:
+		
+		$ ./ngrok http 3000
+
+	It will generate a public url that will route to your local host, for example:
+		
+		http://0b6456ba.ngrok.io
+
+	Copy this and go to /config/environments/development.rb in the application code, search for (line 64):
+
+		config.hosts << ""
+
+	Paste the URL between the double quotes. Then paste as well on "Payload URL" in the settings page of your repository and add "/events", it would look like this:
+
+		http://0b6456ba.ngrok.io/events
+
+	In the field "Content type" you can select any option. Now, it's time to set a secret token for the GitHub and your server. First generate the random string at terminal:
+
+		$ ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'
+
+	Copy the output and fill out "Secret" box at GitHub. Next, set up an environment variable on your server that stores this token. Typically, this is as simple as running:
+		
+		$ export SECRET_TOKEN=your_token
+
+* Up and running the application
+	
+	- To initialize, inside folder's project, run:
+
+		$ bundle install
+		$ rails db:create
+		$ rails db:migrate
+		$ rails db:migrate RAILS_ENV=test
+
+	- To run:
+
+		$ rails server	
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-=======
-# Octo Events
-
-Octo Events is an application that listens to Github Events via webhooks and expose by an api for later use.
-
-![alt text](imgs/octo_events.png)
-
- The test consists in building 2 endpoints:
-
-## 1. Webhook Endpoint
-
-The Webhook endpoint receives events from Github and saves them on the database, in order to do that you must read the following docs:
-
-* Webhooks Overview: https://developer.github.com/webhooks/ 
-* Creating Webhooks : https://developer.github.com/webhooks/creating/
-
-It must be called `/events`
-
-## 2. Events Endpoint
-
-The Events endpoint will expose the persist the events by an api that will filter by issue number
-
-**Request:**
-
-> GET /issues/1000/events
-
-**Response:**
-
-> 200 OK
-```javascript
-[ 
-  { "action": "open", created_at: "...",}, 
-  { "action": "closed", created_at: "...",} 
-]
-```
-
-**Github Integration Instructions**
-
-* Tip: You can use ngrok (https://ngrok.com/)  to install / debug the webhook calls, it generates a public url that will route to your local host:
-
-   $ sudo ngrok http 4000 
-
-![alt text](imgs/ngrok.png)
-
-   GitHub
-
-![alt text](imgs/add_webhook.png)
- 
-**Final Observations**
-
-* Use any library / framework / gem  you want, you don't have to do anything "from scratch"
-* Write tests, use your favorite framework for that
-* Use Postgres 9.6 or MySQL 5.7 as database;
-* Add to README.md your instructions for running the project. Whether you're delivering just source code or an accompanying `Dockerfile`/`docker-compose.yml`, we expect at most the following commands to be needed to run your solution (besides the usual docker related deploy steps):
-    - `rake db:create`
-    - `rake db:migrate`
-    - `rails s -p 3000 -b '0.0.0.0'`
-* We'll run your code with Ruby 2.5.1;
-* Success and have fun :-)
->>>>>>> 50d61cc1ac67aafaa83d0d9ccbcb4ce75c9f6a15
+		$ rspec

@@ -7,13 +7,8 @@ RSpec.describe Event, type: :model do
       expect(subject).to be_valid
     end
 
-    it "is not valid without an issue_id(association)" do
-      subject = build(:unassociated_event)
-      expect(subject).to_not be_valid
-    end
-
     it "is not valid without an action" do
-      subject = build(:event_without_action)
+      subject = build(:event, action: nil)
       expect(subject).to_not be_valid
     end
   end
