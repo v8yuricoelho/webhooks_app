@@ -31,7 +31,7 @@ This application listens GitHub events by webhooks and exposes it by an api
 		
 		http://0b6456ba.ngrok.io
 
-	Copy this and go to /config/environments/development.rb in the application code, search for (line 64):
+	Copy this (without "http://") and go to /config/environments/development.rb in the application code, search for (line 64):
 
 		config.hosts << ""
 
