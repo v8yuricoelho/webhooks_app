@@ -43,7 +43,9 @@ This application listens GitHub events by webhooks and exposes it by an api
 
 		$ ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'
 
-	Copy the output and fill out "Secret" box at GitHub. Next, set up an environment variable on your server that stores this token. Typically, this is as simple as running:
+	Copy the output and fill out "Secret" box at GitHub. Click "Let me select individual events" and then "Issues". Make sure you select "Active" to to receive issue events for triggered webhooks.
+
+	Next, set up an environment variable on your server that stores the token. Typically, this is as simple as running:
 		
 		$ export SECRET_TOKEN=your_token
 
